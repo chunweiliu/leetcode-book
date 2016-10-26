@@ -37,9 +37,11 @@ def binary_search(nums, target):
 ---
 
 ### [Search in rotated sorted array](#search-in-rotated-sorted-array)
+Assume there is no duplicates in the array.
 ```python
 def search_in_rotated_sorted(nums, target):
     """Assert the search result in the ordered side
+    O(log n)
     """
     if not nums:
         return -1
@@ -65,6 +67,39 @@ def search_in_rotated_sorted(nums, target):
     if nums[last] == target:
         return last
     return -1
+```
+
+Otherwise, we have to handle the duplicates.
+```python
+def search_in_rotated_sorted(nums, target):
+    if not nums:
+        return False
+
+    first, last = 0, len(nums) - 1
+    while first + 1 < last:
+        mid = (first + last) / 2
+
+        if nums[mid] == target:
+            return True
+
+        # [0, 1, 1, 1, 1]
+        # [1, 1, 1, 0, 1]
+        if nums[mid] == nums[last]:
+            last -= 1
+        elif nums[mid] < nums[last]:
+            if nums[mid] <= target <= nums[last]:
+                first = mid
+            else:
+                last = mid
+        else:
+            if nums[first] <= target <= nums[mid]:
+                last = mid
+            else:
+                first = mid
+
+    if nums[first] == target or nums[last] == target:
+        return True
+    return False
 ```
 ---
 
@@ -151,9 +186,12 @@ def search_last(nums, target):
 ---
 
 ### [Search a 2D Matrix](#search-a-2d-matrix)
+
+If the elements of the matrix are strictly increasing in order, we can apply binary search to them.
 ```python
 def search_matrix(matrix, target):
     """Convert row and column to 1D index and search
+    Time: O(log nm)
     """
     def row_and_column_of(index, matrix):
         column_length = len(matrix[0])
@@ -180,6 +218,26 @@ def search_matrix(matrix, target):
     r, c = row_and_column_of(last, matrix)
     if matrix[r][c] == target:
         return True
+    return False
+```
+
+Otherwise, we still can eliminate a row or column each time.
+```python
+def search_matrix(matrix, target):
+    """Eliminate a row or column each time
+    Time: O(m + n)
+    """
+    cow, column = len(matrix), len(matrix[0])
+
+    r, c = 0, column - 1
+    while r < row and c >= 0:
+        if matrix[r][c] == target:
+            return True
+
+        if matrix[r][c] < target:
+            r += 1
+        else:
+            c -= 1
     return False
 ```
 ---
@@ -211,6 +269,8 @@ def find_peak_element(nums):
 ---
 
 ### [Find Minimum in Rotated Sorted Array](#find-minimum-in-rotated-sorted-array)
+
+Assume no duplicates existed in the array.
 ```python
 def find_minimum(nums):
     """Find the minimum by visualizing the rotated sorted array
@@ -233,10 +293,38 @@ def find_minimum(nums):
         #                  2
         #                1   <--- bottom middle
         #              0
+        # The following statement is sufficient 
+        # due to the array is ascending.
+        # if nums[mid] > nums[last]:
         if nums[first] < nums[mid] > nums[last]:
             first = mid
         else:
             last = mid
+
+    return min(nums[first], nums[last])
+```
+
+Otherwise, we need to handle it and the worst running time would be O(n).
+```python
+def find_minimum(nums):
+    """Handle the duplicates
+    Time: O(n)
+        [0, 1, 1, 1, 1]
+        [1, 1, 1, 0, 1]
+    """
+    if not nums:
+        return nums
+
+    first, last = 0, len(nums) - 1
+    while first + 1 < last:
+        mid = (first + last) / 2
+
+        if nums[mid] == nums[last]:
+            last -= 1
+        elif nums[mid] < nums[last]:
+            last = mid
+        else:
+            first = mid
 
     return min(nums[first], nums[last])
 ```

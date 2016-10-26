@@ -295,8 +295,10 @@
 </code></pre>
 <hr>
 <h3 id="search-in-rotated-sorted-array"><a href="#search-in-rotated-sorted-array">Search in rotated sorted array</a></h3>
+<p>Assume there is no duplicates in the array.</p>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_in_rotated_sorted</span><span class="hljs-params">(nums, target)</span>:</span>
     <span class="hljs-string">&quot;&quot;&quot;Assert the search result in the ordered side
+    O(log n)
     &quot;&quot;&quot;</span>
     <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> nums:
         <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
@@ -322,6 +324,37 @@
     <span class="hljs-keyword">if</span> nums[last] == target:
         <span class="hljs-keyword">return</span> last
     <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+</code></pre>
+<p>Otherwise, we have to handle the duplicates.</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_in_rotated_sorted</span><span class="hljs-params">(nums, target)</span>:</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> nums:
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span>
+
+    first, last = <span class="hljs-number">0</span>, len(nums) - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> first + <span class="hljs-number">1</span> &lt; last:
+        mid = (first + last) / <span class="hljs-number">2</span>
+
+        <span class="hljs-keyword">if</span> nums[mid] == target:
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span>
+
+        <span class="hljs-comment"># [0, 1, 1, 1, 1]</span>
+        <span class="hljs-comment"># [1, 1, 1, 0, 1]</span>
+        <span class="hljs-keyword">if</span> nums[mid] == nums[last]:
+            last -= <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> nums[mid] &lt; nums[last]:
+            <span class="hljs-keyword">if</span> nums[mid] &lt;= target &lt;= nums[last]:
+                first = mid
+            <span class="hljs-keyword">else</span>:
+                last = mid
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">if</span> nums[first] &lt;= target &lt;= nums[mid]:
+                last = mid
+            <span class="hljs-keyword">else</span>:
+                first = mid
+
+    <span class="hljs-keyword">if</span> nums[first] == target <span class="hljs-keyword">or</span> nums[last] == target:
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span>
 </code></pre>
 <hr>
 <h3 id="search-insert-position"><a href="#search-insert-position">Search insert position</a></h3>
@@ -402,8 +435,10 @@
 </code></pre>
 <hr>
 <h3 id="search-a-2d-matrix"><a href="#search-a-2d-matrix">Search a 2D Matrix</a></h3>
+<p>If the elements of the matrix are strictly increasing in order, we can apply binary search to them.</p>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_matrix</span><span class="hljs-params">(matrix, target)</span>:</span>
     <span class="hljs-string">&quot;&quot;&quot;Convert row and column to 1D index and search
+    Time: O(log nm)
     &quot;&quot;&quot;</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">row_and_column_of</span><span class="hljs-params">(index, matrix)</span>:</span>
         column_length = len(matrix[<span class="hljs-number">0</span>])
@@ -432,6 +467,24 @@
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span>
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span>
 </code></pre>
+<p>Otherwise, we still can eliminate a row or column each time.</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_matrix</span><span class="hljs-params">(matrix, target)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;Eliminate a row or column each time
+    Time: O(m + n)
+    &quot;&quot;&quot;</span>
+    cow, column = len(matrix), len(matrix[<span class="hljs-number">0</span>])
+
+    r, c = <span class="hljs-number">0</span>, column - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> r &lt; row <span class="hljs-keyword">and</span> c &gt;= <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">if</span> matrix[r][c] == target:
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span>
+
+        <span class="hljs-keyword">if</span> matrix[r][c] &lt; target:
+            r += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">else</span>:
+            c -= <span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span>
+</code></pre>
 <hr>
 <h3 id="find-peak-element"><a href="#find-peak-element">Find Peak Element</a></h3>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">find_peak_element</span><span class="hljs-params">(nums)</span>:</span>
@@ -458,6 +511,7 @@
 </code></pre>
 <hr>
 <h3 id="find-minimum-in-rotated-sorted-array"><a href="#find-minimum-in-rotated-sorted-array">Find Minimum in Rotated Sorted Array</a></h3>
+<p>Assume no duplicates existed in the array.</p>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">find_minimum</span><span class="hljs-params">(nums)</span>:</span>
     <span class="hljs-string">&quot;&quot;&quot;Find the minimum by visualizing the rotated sorted array
     &quot;&quot;&quot;</span>
@@ -479,10 +533,36 @@
         <span class="hljs-comment">#                  2</span>
         <span class="hljs-comment">#                1   &lt;--- bottom middle</span>
         <span class="hljs-comment">#              0</span>
+        <span class="hljs-comment"># The following statement is sufficient </span>
+        <span class="hljs-comment"># due to the array is ascending.</span>
+        <span class="hljs-comment"># if nums[mid] &gt; nums[last]:</span>
         <span class="hljs-keyword">if</span> nums[first] &lt; nums[mid] &gt; nums[last]:
             first = mid
         <span class="hljs-keyword">else</span>:
             last = mid
+
+    <span class="hljs-keyword">return</span> min(nums[first], nums[last])
+</code></pre>
+<p>Otherwise, we need to handle it and the worst running time would be O(n).</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">find_minimum</span><span class="hljs-params">(nums)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;Handle the duplicates
+    Time: O(n)
+        [0, 1, 1, 1, 1]
+        [1, 1, 1, 0, 1]
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> nums:
+        <span class="hljs-keyword">return</span> nums
+
+    first, last = <span class="hljs-number">0</span>, len(nums) - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> first + <span class="hljs-number">1</span> &lt; last:
+        mid = (first + last) / <span class="hljs-number">2</span>
+
+        <span class="hljs-keyword">if</span> nums[mid] == nums[last]:
+            last -= <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> nums[mid] &lt; nums[last]:
+            last = mid
+        <span class="hljs-keyword">else</span>:
+            first = mid
 
     <span class="hljs-keyword">return</span> min(nums[first], nums[last])
 </code></pre>
@@ -529,7 +609,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Binary Search","level":"1.2","depth":1,"next":{"title":"Template","level":"1.2.1","depth":2,"anchor":"#template","path":"binary-search.md","ref":"binary-search.md#template","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"binary-search.md","mtime":"2016-10-26T06:25:49.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-10-26T06:32:30.522Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Binary Search","level":"1.2","depth":1,"next":{"title":"Template","level":"1.2.1","depth":2,"anchor":"#template","path":"binary-search.md","ref":"binary-search.md#template","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"binary-search.md","mtime":"2016-10-26T17:41:19.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-10-26T17:39:22.421Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
