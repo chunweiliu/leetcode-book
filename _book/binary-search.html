@@ -168,6 +168,45 @@
             
         </li>
     
+        <li class="chapter " data-level="1.2.5" data-path="binary-search.html">
+            
+                <a href="binary-search.html#search-a-2d-matrix">
+            
+                    
+                    Search a 2D Matrix
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="binary-search.html">
+            
+                <a href="binary-search.html#find-peak-element">
+            
+                    
+                    Find Peak Element
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="binary-search.html">
+            
+                <a href="binary-search.html#find-minimum-in-rotated-sorted-array">
+            
+                    
+                    Find Minimum in Rotated Sorted Array
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -224,139 +263,228 @@
 <li><a href="#search-in-rotated-sorted-array">Search in rotated sorted array</a></li>
 <li><a href="#search-insert-position">Search insert position</a></li>
 <li><a href="#search-range">Search range</a></li>
+<li><a href="#search-a-2d-matrix">Search a 2D Matrix</a></li>
+<li><a href="#find-peak-element">Find Peak Element</a></li>
+<li><a href="#find-minimum-in-rotated-sorted-array">Find Minimum in Rotated Sorted Array</a></li>
 </ul>
 <hr>
 <h3 id="template"><a href="#template">Template</a></h3>
-<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">binary_search</span><span class="hljs-params">(numbers, target)</span>:</span>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">binary_search</span><span class="hljs-params">(nums, target)</span>:</span>
     <span class="hljs-string">&quot;&quot;&quot;Find the first or last positon of the target in the number list
     &quot;&quot;&quot;</span>
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> numbers:
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> nums:
         <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
 
     <span class="hljs-comment"># Name first and last to imply that they are candidates.</span>
-    first, last = <span class="hljs-number">0</span>, len(numbers) - <span class="hljs-number">1</span>
+    first, last = <span class="hljs-number">0</span>, len(nums) - <span class="hljs-number">1</span>
 
-    <span class="hljs-comment"># Loop until the first and last numbers intersect or being side by side.</span>
+    <span class="hljs-comment"># Loop until the first and last nums intersect or being side by side.</span>
     <span class="hljs-keyword">while</span> first + <span class="hljs-number">1</span> &lt; last:
         mid = (first + last) / <span class="hljs-number">2</span>
-        <span class="hljs-keyword">if</span> numbers[mid] &lt;= target:
+        <span class="hljs-keyword">if</span> nums[mid] &lt;= target:
             first = mid
         <span class="hljs-keyword">else</span>:
             last = mid
 
-    <span class="hljs-comment"># We either have one or two numbers here.</span>
-    <span class="hljs-keyword">if</span> numbers[first] == target:
+    <span class="hljs-comment"># We either have one or two nums here.</span>
+    <span class="hljs-keyword">if</span> nums[first] == target:
         <span class="hljs-keyword">return</span> first
-    <span class="hljs-keyword">if</span> numbers[last] == target:
+    <span class="hljs-keyword">if</span> nums[last] == target:
         <span class="hljs-keyword">return</span> last
     <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
 </code></pre>
 <hr>
 <h3 id="search-in-rotated-sorted-array"><a href="#search-in-rotated-sorted-array">Search in rotated sorted array</a></h3>
-<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_in_rotated_sorted</span><span class="hljs-params">(numbers, target)</span>:</span>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_in_rotated_sorted</span><span class="hljs-params">(nums, target)</span>:</span>
     <span class="hljs-string">&quot;&quot;&quot;Assert the search result in the ordered side
     &quot;&quot;&quot;</span>
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> numbers:
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> nums:
         <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
 
-    first, last = <span class="hljs-number">0</span>, len(numbers) - <span class="hljs-number">1</span>
+    first, last = <span class="hljs-number">0</span>, len(nums) - <span class="hljs-number">1</span>
     <span class="hljs-keyword">while</span> first + <span class="hljs-number">1</span> &lt; last:
         mid = (first + last) / <span class="hljs-number">2</span>
 
         <span class="hljs-comment"># Assert the search result in the ordered side.</span>
-        <span class="hljs-keyword">if</span> numbers[first] &lt; numbers[mid]:
-            <span class="hljs-keyword">if</span> numbers[first] &lt;= target &lt;= numbers[mid]:
+        <span class="hljs-keyword">if</span> nums[first] &lt; nums[mid]:
+            <span class="hljs-keyword">if</span> nums[first] &lt;= target &lt;= nums[mid]:
                 last = mid
             <span class="hljs-keyword">else</span>:
                 first = mid
         <span class="hljs-keyword">else</span>:
-            <span class="hljs-keyword">if</span> numbers[mid] &lt;= target &lt;= numbers[last]:
+            <span class="hljs-keyword">if</span> nums[mid] &lt;= target &lt;= nums[last]:
                 first = mid
             <span class="hljs-keyword">else</span>:
                 last = mid
 
-    <span class="hljs-keyword">if</span> numbers[first] == target:
+    <span class="hljs-keyword">if</span> nums[first] == target:
         <span class="hljs-keyword">return</span> first
-    <span class="hljs-keyword">if</span> numbers[last] == target:
+    <span class="hljs-keyword">if</span> nums[last] == target:
         <span class="hljs-keyword">return</span> last
     <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
 </code></pre>
 <hr>
 <h3 id="search-insert-position"><a href="#search-insert-position">Search insert position</a></h3>
-<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_insert_position</span><span class="hljs-params">(numbers, target)</span>:</span>
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> numbers:
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_insert_position</span><span class="hljs-params">(nums, target)</span>:</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> nums:
         <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
 
-    first, last = <span class="hljs-number">0</span>, len(numbers) - <span class="hljs-number">1</span>
+    first, last = <span class="hljs-number">0</span>, len(nums) - <span class="hljs-number">1</span>
     <span class="hljs-keyword">while</span> first + <span class="hljs-number">1</span> &lt; last:
         mid = (first + last) / <span class="hljs-number">2</span>
 
-        <span class="hljs-keyword">if</span> numbers[first] &lt;= target:
+        <span class="hljs-keyword">if</span> nums[first] &lt;= target:
             last = mid
         <span class="hljs-keyword">else</span>:
             first = mid
 
-    <span class="hljs-keyword">if</span> numbers[first] == target:
+    <span class="hljs-keyword">if</span> nums[first] == target:
         <span class="hljs-keyword">return</span> first
-    <span class="hljs-keyword">if</span> numbers[last] == target:
+    <span class="hljs-keyword">if</span> nums[last] == target:
         <span class="hljs-keyword">return</span> last
 
     <span class="hljs-comment"># indice: [x, first, x, last, x]</span>
-    <span class="hljs-keyword">if</span> target &lt; numbers[first]:
+    <span class="hljs-keyword">if</span> target &lt; nums[first]:
         <span class="hljs-keyword">return</span> first
-    <span class="hljs-keyword">if</span> target &lt; numbers[last]:
+    <span class="hljs-keyword">if</span> target &lt; nums[last]:
         <span class="hljs-keyword">return</span> last
     <span class="hljs-keyword">return</span> last + <span class="hljs-number">1</span>
 </code></pre>
 <hr>
 <h3 id="search-range"><a href="#search-range">Search range</a></h3>
-<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_range</span><span class="hljs-params">(numbers, target)</span>:</span>
-    <span class="hljs-keyword">return</span> [search_first(numbers, target), search_last(numbers, target)]
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_range</span><span class="hljs-params">(nums, target)</span>:</span>
+    <span class="hljs-keyword">return</span> [search_first(nums, target), search_last(nums, target)]
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_first</span><span class="hljs-params">(numbers, target)</span>:</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_first</span><span class="hljs-params">(nums, target)</span>:</span>
     <span class="hljs-string">&quot;&quot;&quot;Keep update last to find the first target
     &quot;&quot;&quot;</span>
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> numbers:
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> nums:
         <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
 
-    first, last = <span class="hljs-number">0</span>, len(numbers) - <span class="hljs-number">1</span>
+    first, last = <span class="hljs-number">0</span>, len(nums) - <span class="hljs-number">1</span>
     <span class="hljs-keyword">while</span> first + <span class="hljs-number">1</span> &lt; last:
         mid = (first + last) / <span class="hljs-number">2</span>
 
         <span class="hljs-comment"># Keep update last to find the first target.</span>
-        <span class="hljs-keyword">if</span> numbers[mid] &lt; target:
+        <span class="hljs-keyword">if</span> nums[mid] &lt; target:
             first = mid
         <span class="hljs-keyword">else</span>:
             last = mid
 
-    <span class="hljs-keyword">if</span> numbers[first] == target:
+    <span class="hljs-keyword">if</span> nums[first] == target:
         <span class="hljs-keyword">return</span> first
-    <span class="hljs-keyword">if</span> numbers[last] == target:
+    <span class="hljs-keyword">if</span> nums[last] == target:
         <span class="hljs-keyword">return</span> last
     <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_last</span><span class="hljs-params">(numbers, target)</span>:</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_last</span><span class="hljs-params">(nums, target)</span>:</span>
     <span class="hljs-string">&quot;&quot;&quot;Keep update first to find the last target
     &quot;&quot;&quot;</span>
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> numbers:
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> nums:
         <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
 
-    first, last = <span class="hljs-number">0</span>, len(numbers) - <span class="hljs-number">1</span>
+    first, last = <span class="hljs-number">0</span>, len(nums) - <span class="hljs-number">1</span>
     <span class="hljs-keyword">while</span> first + <span class="hljs-number">1</span> &lt; last:
         mid = (first + last) / <span class="hljs-number">2</span>
 
         <span class="hljs-comment"># Keep update first to find the last target</span>
-        <span class="hljs-keyword">if</span> numbers[mid] &lt;= target:
+        <span class="hljs-keyword">if</span> nums[mid] &lt;= target:
             first = mid
         <span class="hljs-keyword">else</span>:
             last = mid
 
     <span class="hljs-comment"># Return the last one first if it matches.</span>
-    <span class="hljs-keyword">if</span> numbers[last] == target:
+    <span class="hljs-keyword">if</span> nums[last] == target:
         <span class="hljs-keyword">return</span> last
-    <span class="hljs-keyword">if</span> numbers[first] == target:
+    <span class="hljs-keyword">if</span> nums[first] == target:
         <span class="hljs-keyword">return</span> first
     <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+</code></pre>
+<hr>
+<h3 id="search-a-2d-matrix"><a href="#search-a-2d-matrix">Search a 2D Matrix</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search_matrix</span><span class="hljs-params">(matrix, target)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;Convert row and column to 1D index and search
+    &quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">row_and_column_of</span><span class="hljs-params">(index, matrix)</span>:</span>
+        column_length = len(matrix[<span class="hljs-number">0</span>])
+        row = index / column_length
+        column = index % column_length
+        <span class="hljs-keyword">return</span> row, column
+
+    first, last = <span class="hljs-number">0</span>, len(matrix) * len(matrix[<span class="hljs-number">0</span>]) - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> first + <span class="hljs-number">1</span> &lt; last:
+        mid = (first + last) / <span class="hljs-number">2</span>
+
+        r, c = row_and_column_of(mid, matrix)
+        <span class="hljs-keyword">if</span> matrix[r][c] == target:
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span>
+
+        <span class="hljs-keyword">if</span> matrix[r][c] &lt; target:
+            first = mid
+        <span class="hljs-keyword">else</span>:
+            last = mid
+
+    r, c = row_and_column_of(first, matrix)
+    <span class="hljs-keyword">if</span> matrix[r][c] == target:
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span>
+    r, c = row_and_column_of(last, matrix)
+    <span class="hljs-keyword">if</span> matrix[r][c] == target:
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span>
+</code></pre>
+<hr>
+<h3 id="find-peak-element"><a href="#find-peak-element">Find Peak Element</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">find_peak_element</span><span class="hljs-params">(nums)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;The peak is always on the greater side 
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> nums:
+        <span class="hljs-keyword">return</span> nums
+
+    first, last = <span class="hljs-number">0</span>, len(nums) - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> first + <span class="hljs-number">1</span> &lt; last:
+        mid = (first + last) / <span class="hljs-number">2</span>
+
+        <span class="hljs-keyword">if</span> nums[mid - <span class="hljs-number">1</span>] &lt; nums[mid] &gt; nums[mid + <span class="hljs-number">1</span>]:
+            <span class="hljs-keyword">return</span> mid
+
+        <span class="hljs-keyword">if</span> nums[mid] &lt; nums[mid + <span class="hljs-number">1</span>]:
+            first = mid
+        <span class="hljs-keyword">else</span>:
+            last = mid
+
+    <span class="hljs-keyword">if</span> nums[first] &lt; nums[last]:
+        <span class="hljs-keyword">return</span> last
+    <span class="hljs-keyword">return</span> first
+</code></pre>
+<hr>
+<h3 id="find-minimum-in-rotated-sorted-array"><a href="#find-minimum-in-rotated-sorted-array">Find Minimum in Rotated Sorted Array</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">find_minimum</span><span class="hljs-params">(nums)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;Find the minimum by visualizing the rotated sorted array
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> nums:
+        <span class="hljs-keyword">return</span> nums
+
+    first, last = <span class="hljs-number">0</span>, len(nums) - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> first + <span class="hljs-number">1</span> &lt; last:
+        mid = (first + last) / <span class="hljs-number">2</span>
+
+        <span class="hljs-comment">#            9</span>
+        <span class="hljs-comment">#          8   &lt;--- top middle</span>
+        <span class="hljs-comment">#        7         </span>
+        <span class="hljs-comment">#      6</span>
+        <span class="hljs-comment">#    5</span>
+        <span class="hljs-comment">#  4</span>
+        <span class="hljs-comment"># -0-1-2-3-4-5-6-7-8-9- [index] in array  </span>
+        <span class="hljs-comment">#                    3</span>
+        <span class="hljs-comment">#                  2</span>
+        <span class="hljs-comment">#                1   &lt;--- bottom middle</span>
+        <span class="hljs-comment">#              0</span>
+        <span class="hljs-keyword">if</span> nums[first] &lt; nums[mid] &gt; nums[last]:
+            first = mid
+        <span class="hljs-keyword">else</span>:
+            last = mid
+
+    <span class="hljs-keyword">return</span> min(nums[first], nums[last])
 </code></pre>
 
                                 
@@ -401,7 +529,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Binary Search","level":"1.2","depth":1,"next":{"title":"Template","level":"1.2.1","depth":2,"anchor":"#template","path":"binary-search.md","ref":"binary-search.md#template","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"binary-search.md","mtime":"2016-10-25T07:51:06.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-10-25T07:21:17.675Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Binary Search","level":"1.2","depth":1,"next":{"title":"Template","level":"1.2.1","depth":2,"anchor":"#template","path":"binary-search.md","ref":"binary-search.md#template","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"binary-search.md","mtime":"2016-10-26T06:25:49.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-10-26T06:32:30.522Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
