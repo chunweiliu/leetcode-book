@@ -11,3 +11,4 @@
   * [Find Peak Element](binary-search.md#find-peak-element)
   * [Find Minimum in Rotated Sorted Array](binary-search.md#find-minimum-in-rotated-sorted-array)
   * [Median of Two Sorted Arrays](binary-search.md#median-of-two-sorted-arrays)
+* [Binary Tree](binary-tree.md)
