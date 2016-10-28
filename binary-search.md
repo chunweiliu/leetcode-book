@@ -3,9 +3,11 @@
 * [Search in rotated sorted array](#search-in-rotated-sorted-array)
 * [Search insert position](#search-insert-position)
 * [Search range](#search-range)
+* [Sqrt(x)](#sqrt-x)
 * [Search a 2D Matrix](#search-a-2d-matrix)
 * [Find Peak Element](#find-peak-element)
 * [Find Minimum in Rotated Sorted Array](#find-minimum-in-rotated-sorted-array)
+* [Median of Two Sorted Arrays](#median-of-two-sorted-arrays)
 ---
 
 ### [Template](#template)
@@ -185,6 +187,34 @@ def search_last(nums, target):
 ```
 ---
 
+### [Sqrt(x)](#sqrt-x)
+```python
+def my_sqrt(self, x):
+    """Find a number r such that r ** 2 <= x and (r+1) ** 2 > x
+    """
+
+    def square(x):
+        return x * x
+
+    first, last = 0, x
+    while first + 1 < last:
+        mid = (first + last) / 2
+
+        if square(mid) == x:
+            return mid
+
+        if square(mid) < x:
+            first = mid
+        else:
+            last = mid
+
+    # For x = 0
+    if square(first) <= x and square(last) > x:
+        return first
+    return last
+```
+---
+
 ### [Search a 2D Matrix](#search-a-2d-matrix)
 
 If the elements of the matrix are strictly increasing in order, we can apply binary search to them.
@@ -327,4 +357,38 @@ def find_minimum(nums):
             first = mid
 
     return min(nums[first], nums[last])
+```
+---
+
+### [Median of Two Sorted Arrays](#median-of-two-sorted-arrays)
+```python
+def find_median(nums1, nums2):
+    """For a total 10 elements, median is the 5th one. We compare the 2nd
+    element at nums1 and the 3rd element at num2, and eleminate the smaller
+    part. That is, we will remove either 2 elments or 3 elements.
+
+    In the next iteration, we look for either the 3rd or 2nd larger element.
+    """
+    total = len(nums1) + len(nums2)
+    if total % 2 == 1:
+        return self.find_kth_element(nums1, nums2, total / 2 + 1)
+    return 0.5 * (self.find_kth_element(nums1, nums2, total / 2) +
+                  self.find_kth_element(nums1, nums2, total / 2 + 1))
+
+def find_kth_element(self, nums1, nums2, k):
+    # Assert |nums1| > |nums2|
+    if len(nums1) < len(nums2):
+        return self.find_kth_element(nums2, nums1, k)
+
+    if not nums2:
+        return nums1[k - 1]
+
+    if k == 1:
+        return min(nums1[0], nums2[0])
+
+    m = k / 2
+    n = min(k - m, len(nums2))
+    if nums1[m - 1] < nums2[n - 1]:
+        return self.find_kth_element(nums1[m:], nums2, k - m)
+    return self.find_kth_element(nums1, nums2[n:], k - n)
 ```
