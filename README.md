@@ -13,3 +13,12 @@ This needs practice.
 This GitBook categorizes LeetCode problems with my implementation in Python.
 
 Hope you enjoyed.
+
+### LeetCode Tags
+* Binary Search
+* Binary Tree
+* Dynamic Programming
+* Linked List
+* Array & Numbers
+* Data Structure
+* Graph & Search
