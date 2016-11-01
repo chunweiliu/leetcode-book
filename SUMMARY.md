@@ -16,6 +16,7 @@
   * [Binary Tree Inorder Traversal](binary-tree.md#binary-tree-inorder-traversal)
   * [Binary Tree Postorder Traversal](binary-tree.md#binary-tree-postorder-traversal)
   * [Binary Tree Level Order Traversal](binary-tree.md#binary-tree-level-order-traversal)
+  * [Maximum Depth of Binary Tree](binary-tree.md#maximum-depth-of-binary-tree)
   * [Minimum Depth of Binary Tree](binary-tree.md#minimum-depth-of-binary-tree)
   * [Balanced Binary Tree](binary-tree.md#balanced-binary-tree)
   * [Binary Tree Maximum Path Sum](binary-tree.md#binary-tree-maximum-path-sum)

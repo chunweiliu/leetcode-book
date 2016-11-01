@@ -306,6 +306,19 @@
     
         <li class="chapter " data-level="1.3.5" data-path="binary-tree.html">
             
+                <a href="binary-tree.html#maximum-depth-of-binary-tree">
+            
+                    
+                    Maximum Depth of Binary Tree
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="binary-tree.html">
+            
                 <a href="binary-tree.html#minimum-depth-of-binary-tree">
             
                     
@@ -317,7 +330,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.6" data-path="binary-tree.html">
+        <li class="chapter " data-level="1.3.7" data-path="binary-tree.html">
             
                 <a href="binary-tree.html#balanced-binary-tree">
             
@@ -330,7 +343,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.7" data-path="binary-tree.html">
+        <li class="chapter " data-level="1.3.8" data-path="binary-tree.html">
             
                 <a href="binary-tree.html#binary-tree-maximum-path-sum">
             
@@ -343,7 +356,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.8" data-path="binary-tree.html">
+        <li class="chapter " data-level="1.3.9" data-path="binary-tree.html">
             
                 <a href="binary-tree.html#lowest-common-ancestor-of-a-binary-tree">
             
@@ -408,21 +421,23 @@
                                 
                                 <h1 id="binary-tree">Binary Tree</h1>
 <ul>
-<li><a href="binary-tree.html#binary-tree-preorder-traversal">Binary Tree Preorder Traversal</a><ul>
+<li><a href="binary-tree.html#binary-tree-preorder-traversal">Binary Tree Preorder Traversal</a></li>
 <li><a href="binary-tree.html#binary-tree-inorder-traversal">Binary Tree Inorder Traversal</a></li>
 <li><a href="binary-tree.html#binary-tree-postorder-traversal">Binary Tree Postorder Traversal</a></li>
 <li><a href="binary-tree.html#binary-tree-level-order-traversal">Binary Tree Level Order Traversal</a></li>
+<li><a href="binary-tree.html#maximum-depth-of-binary-tree">Maximum Depth of Binary Tree</a></li>
 <li><a href="binary-tree.html#minimum-depth-of-binary-tree">Minimum Depth of Binary Tree</a></li>
 <li><a href="binary-tree.html#balanced-binary-tree">Balanced Binary Tree</a></li>
 <li><a href="binary-tree.html#binary-tree-maximum-path-sum">Binary Tree Maximum Path Sum</a></li>
 <li><a href="binary-tree.html#lowest-common-ancestor-of-a-binary-tree">Lowest Common Ancestor of a Binary Tree</a></li>
 </ul>
-</li>
-</ul>
 <hr>
 <h3 id="binary-tree-preorder-traversal"><a href="#binary-tree-preorder-traversal">Binary Tree Preorder Traversal</a></h3>
-<p>Depth-first search: get the node value when we see the node in the first time.</p>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">preorder</span><span class="hljs-params">(root)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;Depth-first search.
+
+    Get the node value when we see the node in the first time.
+    &quot;&quot;&quot;</span>
     values = []
 
     stack, current = [], root
@@ -437,8 +452,9 @@
 
     <span class="hljs-keyword">return</span> values
 </code></pre>
-<p>Breadth-first search</p>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">preorder</span><span class="hljs-params">(root)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;Breath-first search.
+    &quot;&quot;&quot;</span>
     values = []
 
     <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
@@ -457,8 +473,11 @@
 </code></pre>
 <hr>
 <h3 id="binary-tree-inorder-traversal"><a href="#binary-tree-inorder-traversal">Binary Tree Inorder Traversal</a></h3>
-<p>Depth-first search: get the node value when we traverse back from the left subtree.</p>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">inorder</span><span class="hljs-params">(root)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;Depth-first search.
+
+    Get the node value when we traverse back from the left subtree.
+    &quot;&quot;&quot;</span>
     values = []
 
     stack, current = [], root
@@ -475,8 +494,11 @@
 </code></pre>
 <hr>
 <h3 id="binary-tree-postorder-traversal"><a href="#binary-tree-postorder-traversal">Binary Tree Postorder Traversal</a></h3>
-<p>Depth-first search: get the node value when we traverse back from the right subtree.</p>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">postorder</span><span class="hljs-params">(root)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;Depth-first search.
+
+    Get the node value when we traverse back from the right subtree.
+    &quot;&quot;&quot;</span>
     values = []
 
     previous = <span class="hljs-keyword">None</span>
@@ -495,8 +517,11 @@
                 current = peek.right
     <span class="hljs-keyword">return</span> values
 </code></pre>
-<p>Breadth-first search: use two stacks to reverse the visit order.</p>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">postorder</span><span class="hljs-params">(root)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;Breadth-first search.
+
+    Use two stacks to reverse the visit order.
+    &quot;&quot;&quot;</span>
     values = []
 
     stack2 = []
@@ -518,23 +543,165 @@
 </code></pre>
 <hr>
 <h3 id="binary-tree-level-order-traversal"><a href="#binary-tree-level-order-traversal">Binary Tree Level Order Traversal</a></h3>
-<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">levelorder</span><span class="hljs-params">(root)</span>:</span>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">level_order</span><span class="hljs-params">(root)</span>:</span>
+    level_values = []
+
+    level = [root] <span class="hljs-keyword">if</span> root <span class="hljs-keyword">else</span> []
+    <span class="hljs-keyword">while</span> level:
+        level_values.append([node.val <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> level])
+
+        next_level = []
+        <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> level:
+            <span class="hljs-keyword">if</span> node.left:
+                next_level.append(node.left)
+            <span class="hljs-keyword">if</span> node.right:
+                next_level.append(node.right)
+        level = next_level
+
+    <span class="hljs-keyword">return</span> level_values
 </code></pre>
 <hr>
+<h3 id="maximum-depth-of-binary-tree"><a href="#maximum-depth-of-binary-tree">Maximum Depth of Binary Tree</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">max_depth</span><span class="hljs-params">(root)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;DFS.
+
+    The *depth* of a node is the number of edges from the node to the tree&apos;s root node. A root node will have a depth of 0.
+
+    The *height* of a node is the number of edges on the longest path from the node to a leaf. A leaf node will have a height of 0.
+    &quot;&quot;&quot;</span>
+
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> + max(max_depth(root.left), max_depth(root.right))
+</code></pre>
 <h3 id="minimum-depth-of-binary-tree"><a href="#minimum-depth-of-binary-tree">Minimum Depth of Binary Tree</a></h3>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">min_depth</span><span class="hljs-params">(root)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;BFS
+    &quot;&quot;&quot;</span>
+
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+    level, depth = [root], <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> level:
+
+        next_level = []
+        <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> level:
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> node.left <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> node.right:
+                <span class="hljs-keyword">return</span> depth
+
+            <span class="hljs-keyword">if</span> node.left:
+                next_level.append(node.left)
+            <span class="hljs-keyword">if</span> node.right:
+                next_level.append(node.right)
+
+        depth += <span class="hljs-number">1</span>
+        level = next_level
 </code></pre>
 <hr>
 <h3 id="balanced-binary-tree"><a href="#balanced-binary-tree">Balanced Binary Tree</a></h3>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">is_balanced_tree</span><span class="hljs-params">(root)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">height_or_unbalanced</span><span class="hljs-params">(root)</span>:</span>
+        <span class="hljs-string">&quot;&quot;&quot;DFS.
+
+        Either left or right tree is unbalanced, then we
+        shouldn&apos;t waste time on calling the subroutine.
+        &quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+          <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+        left_height = height_or_unbalanced(root.left)
+        <span class="hljs-keyword">if</span> left_height == <span class="hljs-number">-1</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+
+        right_height = height_or_unbalanced(root.right)
+        <span class="hljs-keyword">if</span> right_height == <span class="hljs-number">-1</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+
+        <span class="hljs-keyword">if</span> abs(left_height - right_height) &gt; <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> + max(left_height, right_height)
+
+    <span class="hljs-keyword">return</span> height_or_unbalanced(root) != <span class="hljs-number">-1</span>
 </code></pre>
 <hr>
 <h3 id="binary-tree-maximum-path-sum"><a href="#binary-tree-maximum-path-sum">Binary Tree Maximum Path Sum</a></h3>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">max_path_sum</span><span class="hljs-params">(root)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;Each path in this tree is either 
+
+    1) starting from a root to a leaf, or 
+    2) across a root from one subtree to another. 
+
+    We exam each node as a root in this tree.
+    &quot;&quot;&quot;</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">max_path_to_root</span><span class="hljs-params">(root)</span>:</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+        left_max_value = max(<span class="hljs-number">0</span>, max_path_to_root(root.left))
+        right_max_value = max(<span class="hljs-number">0</span>, max_path_to_root(root.right))
+
+        <span class="hljs-comment"># The value won&apos;t pass upon.</span>
+        <span class="hljs-comment">#      root</span>
+        <span class="hljs-comment">#    /      \</span>
+        <span class="hljs-comment"># left      right</span>
+        max_path_value = max(max_path_value,
+                             left_max_value + root.val + right_max_value)
+
+        <span class="hljs-comment"># The value can be passed to its partent.</span>
+        <span class="hljs-comment"># parent</span>
+        <span class="hljs-comment">#       \</span>
+        <span class="hljs-comment">#      root</span>
+        <span class="hljs-comment">#    /</span>
+        <span class="hljs-comment"># left</span>
+        <span class="hljs-keyword">return</span> root.val + max(left_max_value, right_max_value)
+
+    max_path_value = <span class="hljs-keyword">None</span>
+    max_path_to_root(root)
+    <span class="hljs-keyword">return</span> max_path_value
 </code></pre>
 <hr>
 <h3 id="lowest-common-ancestor-of-a-binary-tree"><a href="#lowest-common-ancestor-of-a-binary-tree">Lowest Common Ancestor of a Binary Tree</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">common_ancestor</span><span class="hljs-params">(root, p, q)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;A common ancestor is a node that have p and q in different subtree.
+    &quot;&quot;&quot;</span>
+
+    <span class="hljs-keyword">if</span> root <span class="hljs-keyword">in</span> (<span class="hljs-keyword">None</span>, p, q):
+        <span class="hljs-keyword">return</span> root
+
+    left, right = (common_ancestor(child, p, q)
+                   <span class="hljs-keyword">for</span> child <span class="hljs-keyword">in</span> (root.left, root.right))
+
+    <span class="hljs-keyword">return</span> root <span class="hljs-keyword">if</span> left <span class="hljs-keyword">and</span> right <span class="hljs-keyword">else</span> left <span class="hljs-keyword">or</span> right
+</code></pre>
 <pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">common_ancestor</span><span class="hljs-params">(root)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;A bad implementation.
+
+    Calling node_found_at is O(n), we call it for every node. 
+    The algorithm becomes O(n ** 2).
+    &quot;&quot;&quot;</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">node_found_at</span><span class="hljs-params">(root, node)</span>:</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span>
+
+        <span class="hljs-keyword">if</span> root == node:
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span>
+
+        <span class="hljs-keyword">return</span> node_found_at(root.left) <span class="hljs-keyword">or</span> node_found_at(root.right)
+
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+        <span class="hljs-keyword">return</span> root
+
+    <span class="hljs-keyword">if</span> node_found_at(root.left, p) <span class="hljs-keyword">and</span> node_found_at(root.left, q):
+        <span class="hljs-keyword">return</span> self.lowestCommonAncestor(root.left, p, q)
+
+    <span class="hljs-keyword">if</span> node_found_at(root.right, p) <span class="hljs-keyword">and</span> node_found_at(root.right, q):
+        <span class="hljs-keyword">return</span> self.lowestCommonAncestor(root.right, p, q)
+
+    <span class="hljs-keyword">return</span> root
 </code></pre>
 <hr>
 
@@ -580,7 +747,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Binary Tree","level":"1.3","depth":1,"next":{"title":"Binary Tree Preorder Traversal","level":"1.3.1","depth":2,"anchor":"#binary-tree-preorder-traversal","path":"binary-tree.md","ref":"binary-tree.md#binary-tree-preorder-traversal","articles":[]},"previous":{"title":"Median of Two Sorted Arrays","level":"1.2.9","depth":2,"anchor":"#median-of-two-sorted-arrays","path":"binary-search.md","ref":"binary-search.md#median-of-two-sorted-arrays","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"binary-tree.md","mtime":"2016-10-29T05:31:26.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-10-29T05:44:01.417Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Binary Tree","level":"1.3","depth":1,"next":{"title":"Binary Tree Preorder Traversal","level":"1.3.1","depth":2,"anchor":"#binary-tree-preorder-traversal","path":"binary-tree.md","ref":"binary-tree.md#binary-tree-preorder-traversal","articles":[]},"previous":{"title":"Median of Two Sorted Arrays","level":"1.2.9","depth":2,"anchor":"#median-of-two-sorted-arrays","path":"binary-search.md","ref":"binary-search.md#median-of-two-sorted-arrays","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"binary-tree.md","mtime":"2016-11-01T16:13:35.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-01T16:14:12.979Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
