@@ -8,6 +8,7 @@
 * [Balanced Binary Tree](binary-tree.md#balanced-binary-tree)
 * [Binary Tree Maximum Path Sum](binary-tree.md#binary-tree-maximum-path-sum)
 * [Lowest Common Ancestor of a Binary Tree](binary-tree.md#lowest-common-ancestor-of-a-binary-tree)
+
 ---
 
 ### [Binary Tree Preorder Traversal](#binary-tree-preorder-traversal)
@@ -53,6 +54,7 @@ def preorder(root):
 
 	return values
 ```
+
 ---
 
 ### [Binary Tree Inorder Traversal](#binary-tree-inorder-traversal)
@@ -77,6 +79,7 @@ def inorder(root):
 
     return values
 ```
+
 ---
 
 ### [Binary Tree Postorder Traversal](#binary-tree-postorder-traversal)
@@ -131,6 +134,7 @@ def postorder(root):
 
 	return values
 ```
+
 ---
 
 ### [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
@@ -152,6 +156,7 @@ def level_order(root):
 
     return level_values
 ```
+
 ---
 
 ### [Maximum Depth of Binary Tree](#maximum-depth-of-binary-tree)
@@ -195,6 +200,7 @@ def min_depth(root):
 		depth += 1
 		level = next_level
 ```
+
 ---
 
 ### [Balanced Binary Tree](#balanced-binary-tree)
@@ -225,6 +231,7 @@ def is_balanced_tree(root):
 
     return height_or_unbalanced(root) != -1
 ```
+
 ---
 
 ### [Binary Tree Maximum Path Sum](#binary-tree-maximum-path-sum)
@@ -266,6 +273,7 @@ def max_path_sum(root):
     max_path_to_root(root)
     return max_path_value
 ```
+
 ---
 
 ### [Lowest Common Ancestor of a Binary Tree](#lowest-common-ancestor-of-a-binary-tree)
@@ -311,4 +319,3 @@ def common_ancestor(root):
 
     return root
 ```
----

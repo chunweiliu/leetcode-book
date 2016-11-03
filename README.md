@@ -1,12 +1,19 @@
 # Introduction
-#### A GitBook for preparing programming interviews
+### A GitBook for preparing programming interviews
 
-In programming interviews, a promising software engineer candidate is expected to
-* ask questions,
-* write clean code which
-	* is easy to read, 
-	* is easy for extension,
-* write bugs free code.
+Hint for a promising software engineer candidate:
+
+[Do]
+* Clearify the problem
+* Write clean code
+* Write test cases
+* Debug with strategy
+
+[Do not]
+* Ask question later
+* Write messy code
+* Trap by edge cases
+* Debug with guess
 
 This needs practice.
 

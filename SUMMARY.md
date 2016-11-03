@@ -24,7 +24,7 @@
 * [Dynamic Programming](dynamic-programming.md)
 	* [Coordinates](dynamic-programming.md#coordinates)
 		* [Triangle](dynamic-programming.md#triangle)
-		* [Unique Path](dynamic-programming.md#unique-path)
+		* [Unique Paths](dynamic-programming.md#unique-paths)
 		* [Climbing Stairs](dynamic-programming.md#climbing-stairs)
 		* [House Robber](dynamic-programming.md#house-robber)
 		* [Minimum Path Sum](dynamic-programming.md#minimum-path-sum)

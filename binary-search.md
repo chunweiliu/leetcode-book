@@ -8,6 +8,7 @@
 * [Find Peak Element](binary-search.md#find-peak-element)
 * [Find Minimum in Rotated Sorted Array](binary-search.md#find-minimum-in-rotated-sorted-array)
 * [Median of Two Sorted Arrays](binary-search.md#median-of-two-sorted-arrays)
+
 ---
 
 ### [Template](#template)
@@ -36,6 +37,7 @@ def binary_search(nums, target):
         return last
     return -1
 ```
+
 ---
 
 ### [Search in rotated sorted array](#search-in-rotated-sorted-array)
@@ -103,6 +105,7 @@ def search_in_rotated_sorted(nums, target):
         return True
     return False
 ```
+
 ---
 
 ### [Search insert position](#search-insert-position)
@@ -132,6 +135,7 @@ def search_insert_position(nums, target):
         return last
     return last + 1
 ```
+
 ---
 
 ### [Search range](#search-range)
@@ -185,6 +189,7 @@ def search_last(nums, target):
         return first
     return -1
 ```
+
 ---
 
 ### [Sqrt(x)](#sqrt-x)
@@ -213,6 +218,7 @@ def my_sqrt(self, x):
         return first
     return last
 ```
+
 ---
 
 ### [Search a 2D Matrix](#search-a-2d-matrix)
@@ -270,6 +276,7 @@ def search_matrix(matrix, target):
             c -= 1
     return False
 ```
+
 ---
 
 ### [Find Peak Element](#find-peak-element)
@@ -358,6 +365,7 @@ def find_minimum(nums):
 
     return min(nums[first], nums[last])
 ```
+
 ---
 
 ### [Median of Two Sorted Arrays](#median-of-two-sorted-arrays)

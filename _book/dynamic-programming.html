@@ -417,10 +417,10 @@
     
         <li class="chapter " data-level="1.4.1.2" data-path="dynamic-programming.html">
             
-                <a href="dynamic-programming.html#unique-path">
+                <a href="dynamic-programming.html#unique-paths">
             
                     
-                    Unique Path
+                    Unique Paths
             
                 </a>
             
@@ -765,7 +765,7 @@
 <ul>
 <li><a href="dynamic-programming.html#coordinates">Coordinates</a><ul>
 <li><a href="dynamic-programming.html#triangle">Triangle</a></li>
-<li><a href="dynamic-programming.html#unique-path">Unique Path</a></li>
+<li><a href="dynamic-programming.html#unique-paths">Unique Paths</a></li>
 <li><a href="dynamic-programming.html#climbing-stairs">Climbing Stairs</a></li>
 <li><a href="dynamic-programming.html#house-robber">House Robber</a></li>
 <li><a href="dynamic-programming.html#minimum-path-sum">Minimum Path Sum</a></li>
@@ -795,6 +795,113 @@
 </ul>
 </li>
 </ul>
+<hr>
+<h2 id="coordinates"><a href="#coordinates">Coordinates</a></h2>
+<h3 id="triangle"><a href="#triangle">Triangle</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">min_path_total</span><span class="hljs-params">(triangle)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;For i &gt; 0, j &gt; 0:
+        node[i][j] = value[i][j] + min(node[i - 1][j - 1], node[i - 1][j])
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> triangle <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> triangle[<span class="hljs-number">-1</span>]:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+    <span class="hljs-keyword">for</span> i, row <span class="hljs-keyword">in</span> enumerate(triangle):
+        <span class="hljs-keyword">for</span> j, node <span class="hljs-keyword">in</span> enumerate(row):
+            <span class="hljs-keyword">if</span> i == <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> j == <span class="hljs-number">0</span>:
+                <span class="hljs-keyword">continue</span>
+
+            <span class="hljs-keyword">if</span> j == <span class="hljs-number">0</span>:
+                triangle[i][j] += triangle[i - <span class="hljs-number">1</span>][j]
+            <span class="hljs-keyword">elif</span> j == len(row) - <span class="hljs-number">1</span>:
+                triangle[i][j] += triangle[i - <span class="hljs-number">1</span>][<span class="hljs-number">-1</span>]
+            <span class="hljs-keyword">else</span>:
+                triangle[i][j] += min(triangle[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>], triangle[i - <span class="hljs-number">1</span>][j])
+
+    <span class="hljs-keyword">return</span> min(triangle[<span class="hljs-number">-1</span>])
+</code></pre>
+<hr>
+<h3 id="unique-paths"><a href="#unique-paths">Unique Paths</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">unique_paths</span><span class="hljs-params">(row, column)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;For x &gt; 0, y &gt; 0:
+        paths[i][j] = paths[i - 1][j] + paths[i][j - 1]
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> row == <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> column == <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+    paths = [<span class="hljs-number">1</span>] * column
+
+    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, row):
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, column):
+            paths[j] += paths[j - <span class="hljs-number">1</span>]
+
+    <span class="hljs-keyword">return</span> paths[<span class="hljs-number">-1</span>]
+</code></pre>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">unique_paths</span><span class="hljs-params">(obstacles)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> obstacles <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> obstacles[<span class="hljs-number">0</span>]:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+    row, column = len(obstacles), len(obstacles[<span class="hljs-number">0</span>])
+
+    <span class="hljs-comment"># Initalize the first row paths</span>
+    paths = [<span class="hljs-number">0</span>] * column
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(column):
+        <span class="hljs-keyword">if</span> obstacles[<span class="hljs-number">0</span>][j] == <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">break</span>
+        paths[j] = <span class="hljs-number">1</span>
+
+
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, row):
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(column):
+            <span class="hljs-keyword">if</span> obstacles[i][j] == <span class="hljs-number">1</span>:
+                paths[j] = <span class="hljs-number">0</span>
+            <span class="hljs-comment"># Aware the first column</span>
+            <span class="hljs-keyword">elif</span> j &gt; <span class="hljs-number">0</span>:
+                paths[j] += paths[j - <span class="hljs-number">1</span>]
+
+    <span class="hljs-keyword">return</span> paths[<span class="hljs-number">-1</span>]
+</code></pre>
+<hr>
+<h3 id="climbing-stairs"><a href="#climbing-stairs">Climbing Stairs</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">climbing_stair_ways</span><span class="hljs-params">(stairs)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;
+    ways[1] = 1
+    ways[2] = 2
+    For i &gt; 2:
+        ways[i] = ways[i - 1] + ways[i - 2]
+                  (2-step-ways) (1-steps-ways)
+    &quot;&quot;&quot;</span>
+    one_step_ways, two_step_ways = <span class="hljs-number">1</span>, <span class="hljs-number">2</span>
+
+    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>, n):
+        two_step_ways, one_step_ways = one_step_ways + two_step_ways, two_step_ways
+
+    <span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span>:
+        <span class="hljs-keyword">return</span> one_step_ways
+    <span class="hljs-keyword">if</span> n == <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">return</span> two_step_ways
+    <span class="hljs-keyword">return</span> one_step_ways + two_step_ways
+</code></pre>
+<hr>
+<h3 id="house-robber"><a href="#house-robber">House Robber</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">max_value</span><span class="hljs-params">(nums)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;Either rob ith house or not
+        f(-2) = 0
+        f(-1) = 0
+        f(0)  = nums[0]
+        f(1)  = max(nums[0], nums[1])
+        ...
+        f(i)  = max(f(i - 2) + nums[i], f(i - 1))
+    &quot;&quot;&quot;</span>
+    not_robbed_last, robbed_last = <span class="hljs-number">0</span>, <span class="hljs-number">0</span>
+
+    <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> nums:
+        current = max(not_robbed_last + num, robbed_last)
+        not_robbed_last, robbed_last = robbed_last, current
+
+    <span class="hljs-keyword">return</span> max(not_robbed_last, robbed_last)
+</code></pre>
 
                                 
                                 </section>
@@ -838,7 +945,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dynamic Programming","level":"1.4","depth":1,"next":{"title":"Coordinates","level":"1.4.1","depth":2,"anchor":"#coordinates","path":"dynamic-programming.md","ref":"dynamic-programming.md#coordinates","articles":[{"title":"Triangle","level":"1.4.1.1","depth":3,"anchor":"#triangle","path":"dynamic-programming.md","ref":"dynamic-programming.md#triangle","articles":[]},{"title":"Unique Path","level":"1.4.1.2","depth":3,"anchor":"#unique-path","path":"dynamic-programming.md","ref":"dynamic-programming.md#unique-path","articles":[]},{"title":"Climbing Stairs","level":"1.4.1.3","depth":3,"anchor":"#climbing-stairs","path":"dynamic-programming.md","ref":"dynamic-programming.md#climbing-stairs","articles":[]},{"title":"House Robber","level":"1.4.1.4","depth":3,"anchor":"#house-robber","path":"dynamic-programming.md","ref":"dynamic-programming.md#house-robber","articles":[]},{"title":"Minimum Path Sum","level":"1.4.1.5","depth":3,"anchor":"#minimum-path-sum","path":"dynamic-programming.md","ref":"dynamic-programming.md#minimum-path-sum","articles":[]},{"title":"Jump Game","level":"1.4.1.6","depth":3,"anchor":"#jump-game","path":"dynamic-programming.md","ref":"dynamic-programming.md#jump-game","articles":[]},{"title":"Longest Increasing Subsequence","level":"1.4.1.7","depth":3,"anchor":"#longest-increasing-subsequence","path":"dynamic-programming.md","ref":"dynamic-programming.md#longest-increasing-subsequence","articles":[]}]},"previous":{"title":"Lowest Common Ancestor of a Binary Tree","level":"1.3.9","depth":2,"anchor":"#lowest-common-ancestor-of-a-binary-tree","path":"binary-tree.md","ref":"binary-tree.md#lowest-common-ancestor-of-a-binary-tree","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dynamic-programming.md","mtime":"2016-11-01T16:53:41.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-01T16:50:32.633Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Dynamic Programming","level":"1.4","depth":1,"next":{"title":"Coordinates","level":"1.4.1","depth":2,"anchor":"#coordinates","path":"dynamic-programming.md","ref":"dynamic-programming.md#coordinates","articles":[{"title":"Triangle","level":"1.4.1.1","depth":3,"anchor":"#triangle","path":"dynamic-programming.md","ref":"dynamic-programming.md#triangle","articles":[]},{"title":"Unique Paths","level":"1.4.1.2","depth":3,"anchor":"#unique-paths","path":"dynamic-programming.md","ref":"dynamic-programming.md#unique-paths","articles":[]},{"title":"Climbing Stairs","level":"1.4.1.3","depth":3,"anchor":"#climbing-stairs","path":"dynamic-programming.md","ref":"dynamic-programming.md#climbing-stairs","articles":[]},{"title":"House Robber","level":"1.4.1.4","depth":3,"anchor":"#house-robber","path":"dynamic-programming.md","ref":"dynamic-programming.md#house-robber","articles":[]},{"title":"Minimum Path Sum","level":"1.4.1.5","depth":3,"anchor":"#minimum-path-sum","path":"dynamic-programming.md","ref":"dynamic-programming.md#minimum-path-sum","articles":[]},{"title":"Jump Game","level":"1.4.1.6","depth":3,"anchor":"#jump-game","path":"dynamic-programming.md","ref":"dynamic-programming.md#jump-game","articles":[]},{"title":"Longest Increasing Subsequence","level":"1.4.1.7","depth":3,"anchor":"#longest-increasing-subsequence","path":"dynamic-programming.md","ref":"dynamic-programming.md#longest-increasing-subsequence","articles":[]}]},"previous":{"title":"Lowest Common Ancestor of a Binary Tree","level":"1.3.9","depth":2,"anchor":"#lowest-common-ancestor-of-a-binary-tree","path":"binary-tree.md","ref":"binary-tree.md#lowest-common-ancestor-of-a-binary-tree","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dynamic-programming.md","mtime":"2016-11-03T07:09:38.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-03T07:08:29.817Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
