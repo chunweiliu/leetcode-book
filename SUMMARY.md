@@ -32,7 +32,7 @@
 		* [Longest Increasing Subsequence](dynamic-programming.md#longest-increasing-subsequence)
 	* [Sequence](dynamic-programming.md#sequence)
 		* [Word Break](dynamic-programming.md#word-break)
-		* [Palindrome Partitioning](dynamic-programming.md#palindrome-partitioning)
+		* [Palindrome Partitioning II](dynamic-programming.md#palindrome-partitioning-ii)
 	* [Double Sequence](dynamic-programming.md#doulbe-sequence)
 		* [Longest Common Subsequence](dynamic-programming.md#longest-common-susequence)
 		* [Edit Distance](dynamic-programming.md#edit-distance)
@@ -45,5 +45,4 @@
 		* [Stone Game](dynamic-programming.md#stone-game)
 		* [Burst Balloons](dynamic-programming.md#burst-ballons)
 		* [Scramble String](dynamic-programming.md#scramble-strings)
-
 

@@ -42,6 +42,7 @@ def binary_search(nums, target):
 
 ### [Search in rotated sorted array](#search-in-rotated-sorted-array)
 Assume there is no duplicates in the array.
+
 ```python
 def search_in_rotated_sorted(nums, target):
     """Assert the search result in the ordered side
@@ -74,6 +75,7 @@ def search_in_rotated_sorted(nums, target):
 ```
 
 Otherwise, we have to handle the duplicates.
+
 ```python
 def search_in_rotated_sorted(nums, target):
     if not nums:
@@ -109,6 +111,7 @@ def search_in_rotated_sorted(nums, target):
 ---
 
 ### [Search insert position](#search-insert-position)
+
 ```python
 def search_insert_position(nums, target):
     if not nums:
@@ -193,6 +196,7 @@ def search_last(nums, target):
 ---
 
 ### [Sqrt(x)](#sqrt-x)
+
 ```python
 def my_sqrt(self, x):
     """Find a number r such that r ** 2 <= x and (r+1) ** 2 > x
@@ -224,6 +228,7 @@ def my_sqrt(self, x):
 ### [Search a 2D Matrix](#search-a-2d-matrix)
 
 If the elements of the matrix are strictly increasing in order, we can apply binary search to them.
+
 ```python
 def search_matrix(matrix, target):
     """Convert row and column to 1D index and search
@@ -258,6 +263,7 @@ def search_matrix(matrix, target):
 ```
 
 Otherwise, we still can eliminate a row or column each time.
+
 ```python
 def search_matrix(matrix, target):
     """Eliminate a row or column each time
@@ -280,6 +286,7 @@ def search_matrix(matrix, target):
 ---
 
 ### [Find Peak Element](#find-peak-element)
+
 ```python
 def find_peak_element(nums):
     """The peak is always on the greater side 
@@ -306,8 +313,8 @@ def find_peak_element(nums):
 ---
 
 ### [Find Minimum in Rotated Sorted Array](#find-minimum-in-rotated-sorted-array)
-
 Assume no duplicates existed in the array.
+
 ```python
 def find_minimum(nums):
     """Find the minimum by visualizing the rotated sorted array
@@ -342,6 +349,7 @@ def find_minimum(nums):
 ```
 
 Otherwise, we need to handle it and the worst running time would be O(n).
+
 ```python
 def find_minimum(nums):
     """Handle the duplicates
@@ -369,6 +377,7 @@ def find_minimum(nums):
 ---
 
 ### [Median of Two Sorted Arrays](#median-of-two-sorted-arrays)
+
 ```python
 def find_median(nums1, nums2):
     """For a total 10 elements, median is the 5th one. We compare the 2nd

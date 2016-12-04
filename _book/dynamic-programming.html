@@ -527,10 +527,10 @@
     
         <li class="chapter " data-level="1.4.2.2" data-path="dynamic-programming.html">
             
-                <a href="dynamic-programming.html#palindrome-partitioning">
+                <a href="dynamic-programming.html#palindrome-partitioning-ii">
             
                     
-                    Palindrome Partitioning
+                    Palindrome Partitioning II
             
                 </a>
             
@@ -775,7 +775,7 @@
 </li>
 <li><a href="dynamic-programming.html#sequence">Sequence</a><ul>
 <li><a href="dynamic-programming.html#word-break">Word Break</a></li>
-<li><a href="dynamic-programming.html#palindrome-partitioning">Palindrome Partitioning</a></li>
+<li><a href="dynamic-programming.html#palindrome-partitioning-ii">Palindrome Partitioning II</a></li>
 </ul>
 </li>
 <li><a href="dynamic-programming.html#doulbe-sequence">Double Sequence</a><ul>
@@ -788,8 +788,6 @@
 <li><a href="dynamic-programming.html#advance-topics">Advance Topics</a><ul>
 <li><a href="dynamic-programming.html#best-time-to-buy-and-sell-stock">Best Time to Buy and Sell Stock</a></li>
 <li><a href="dynamic-programming.html#maximum-subarray">Maximum Subarray</a></li>
-<li><a href="dynamic-programming.html#coin-in-a-line">Coin in A Line</a></li>
-<li><a href="dynamic-programming.html#stone-game">Stone Game</a></li>
 <li><a href="dynamic-programming.html#burst-ballons">Burst Balloons</a></li>
 <li><a href="dynamic-programming.html#scramble-strings">Scramble String</a></li>
 </ul>
@@ -902,6 +900,258 @@
 
     <span class="hljs-keyword">return</span> max(not_robbed_last, robbed_last)
 </code></pre>
+<h3 id="jump-game"><a href="#jump-game">Jump Game</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reachable</span><span class="hljs-params">(nums)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;[Greedy] Update the furthest place we can visit 
+    &quot;&quot;&quot;</span>
+    furthest = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> i, num <span class="hljs-keyword">in</span> enumerate(nums):
+        <span class="hljs-keyword">if</span> i &gt; furthest:
+            <span class="hljs-keyword">break</span>
+
+        furthest = max(furthest, i + num)
+
+    <span class="hljs-keyword">return</span> furthest &gt;= len(nums) - <span class="hljs-number">1</span>
+</code></pre>
+<h3 id="longest-increasing-subsequence"><a href="#longest-increasing-subsequence">Longest Increasing Subsequence</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">longest_increasing_subsequence</span><span class="hljs-params">(nums)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;DP O(n^2)
+    If i &lt; j and nums[i] &lt; nums[j], then the sequence of f(i) can be 
+    the sequence of f(j)&apos;s prefix.
+
+    f(j) = max 1 + f(i) for 0 &lt;= i &lt; j, nums[i] &lt; nums[j]
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> nums:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+    lis = [<span class="hljs-number">1</span>] * len(nums)
+
+    <span class="hljs-keyword">for</span> j, num <span class="hljs-keyword">in</span> enumerate(nums):
+        lis[j] = max(
+            [<span class="hljs-number">1</span> + lis[i] 
+             <span class="hljs-keyword">for</span> i, previous_num <span class="hljs-keyword">in</span> enumerate(nums[:j])
+             <span class="hljs-keyword">if</span> previous_num &lt; num] <span class="hljs-keyword">or</span> [<span class="hljs-number">1</span>])
+
+    <span class="hljs-keyword">return</span> max(lis)
+</code></pre>
+<h2 id="sequence"><a href="#sequence">Sequence</a></h2>
+<h3 id="word-break"><a href="#word-break">Word Break</a></h3>
+<pre><code class="lang-python">
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">word_break</span><span class="hljs-params">(self, s, word_dict)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;DP O(n^2)
+
+    break[j] is true if break[i] is true and s[i:j] in word_dict.
+
+    Example: 
+    d = {&apos;face&apos;, &apos;book&apos;}
+    s =  &apos;facebook&apos;
+    si    01234567
+    b    TFFFTFFFT
+    bi   012345678
+
+    j = 4, i = 0
+    break[4] = break[0] and s[0:4] in d
+
+    j = 8, i = 4
+    break[8] = break[4] and s[4:8] in d
+
+    Question:
+        - Is the word in dictionary reuseable?
+    &quot;&quot;&quot;</span>
+
+    constructeds = [<span class="hljs-keyword">False</span>] * (len(s) + <span class="hljs-number">1</span>)
+    constructeds[<span class="hljs-number">0</span>] = <span class="hljs-keyword">True</span>
+
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(len(constructeds)):
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(j):
+            <span class="hljs-keyword">if</span> constructeds[j]:
+                <span class="hljs-keyword">break</span>
+
+            constructeds[j] = constructeds[i] <span class="hljs-keyword">and</span> s[i:j] <span class="hljs-keyword">in</span> word_dict
+
+    <span class="hljs-keyword">return</span> constructeds[<span class="hljs-number">-1</span>]
+</code></pre>
+<h3 id="palindrome-partitioning"><a href="#palindrome-partitioning-ii">Palindrome Partitioning</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">min_cut</span><span class="hljs-params">(s)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;DP O(n^2)
+    &quot;&quot;&quot;</span>
+    n = len(s)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_cuts</span><span class="hljs-params">(left, right)</span>:</span>
+        <span class="hljs-keyword">while</span> <span class="hljs-number">0</span> &lt;= left &lt;= right &lt; n <span class="hljs-keyword">and</span> s[left] == s[right]:
+            <span class="hljs-comment"># Either include a new palindrome with one additional cut or not.</span>
+            cuts[<span class="hljs-number">1</span> + right] = min(cuts[<span class="hljs-number">1</span> + right], <span class="hljs-number">1</span> + cuts[left])
+            left -= <span class="hljs-number">1</span>
+            right += <span class="hljs-number">1</span>
+
+    cuts = [i - <span class="hljs-number">1</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n + <span class="hljs-number">1</span>)]
+
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+        left, right = i, i
+        update_cuts(left, right)
+
+        left, right = i, i + <span class="hljs-number">1</span>
+        update_cuts(left, right)
+
+    <span class="hljs-keyword">return</span> cuts[<span class="hljs-number">-1</span>]
+</code></pre>
+<h3 id="edit-distance"><a href="#edit-distance">Edit Distance</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">edit_distance</span><span class="hljs-params">(s, t)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;DP O(n^2)
+    &quot;&quot;&quot;</span>
+    m, n = len(s), len(t)
+
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> m:
+        <span class="hljs-keyword">return</span> n
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> n:
+        <span class="hljs-keyword">return</span> m
+
+    table = [[<span class="hljs-number">0</span>] * (<span class="hljs-number">1</span> + n) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span> + m)]
+
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span> + m):
+        table[i][<span class="hljs-number">0</span>] = i
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span> + n):
+        table[<span class="hljs-number">0</span>][j] = j
+
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">1</span> + m):
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">1</span> + n):
+            table[i][j] = min(
+                table[i - <span class="hljs-number">1</span>][j] + <span class="hljs-number">1</span>,
+                table[i][j - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>,
+                table[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + (s[i] != t[j]))
+
+    <span class="hljs-keyword">return</span> table[<span class="hljs-number">-1</span>][<span class="hljs-number">-1</span>]
+</code></pre>
+<h3 id="interleaving-string"><a href="#interleaving-string">Interleaving String</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">interleaving_string</span><span class="hljs-params">(s1, s2, s3)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;
+    Either choose s1 or s2 each time for s3.
+
+    interleaved[i][j] = if s1[:i] and s2[:j] can form s3[:i + j]
+
+    interleaved[i][j] = interleaved[i - 1][j] and s1[i] == s3[i + j] or
+                        interleaved[i][j - 1] and s2[j] == s3[i + j]
+
+    Hint:
+        - padding s1, s2, and, s3 for better indexing
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> len(s3) != len(s1 + s2):
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span>
+
+    s1 = <span class="hljs-string">&apos;0&apos;</span> + s1
+    s2 = <span class="hljs-string">&apos;0&apos;</span> + s2
+    s3 = <span class="hljs-string">&apos;0&apos;</span> + s3
+
+    m, n = len(s1), len(s2)
+
+    interleaved = [[<span class="hljs-keyword">False</span>] * n <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(m)]
+
+    interleaved[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-keyword">True</span>
+
+    i = <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> i &lt; m <span class="hljs-keyword">and</span> interleaved[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>] <span class="hljs-keyword">and</span> s1[i] == s3[i]:
+        interleaved[i][<span class="hljs-number">0</span>] = <span class="hljs-keyword">True</span>
+        i += <span class="hljs-number">1</span>
+
+    j = <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> j &lt; n <span class="hljs-keyword">and</span> interleaved[<span class="hljs-number">0</span>][j - <span class="hljs-number">1</span>] <span class="hljs-keyword">and</span> s2[j] == s3[j]:
+        interleaved[<span class="hljs-number">0</span>][j] = <span class="hljs-keyword">True</span>
+        j += <span class="hljs-number">1</span>
+
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, m):
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, n):
+            <span class="hljs-comment"># For example, when i = 1 and j = 1, you are checkecking s3[2],</span>
+            <span class="hljs-comment"># which is the current character we care about. s3[1] has to be</span>
+            <span class="hljs-comment"># filled by either s1[1] or s2[1] (after padding).</span>
+            interleaved[i][j] = interleaved[i - <span class="hljs-number">1</span>][j] <span class="hljs-keyword">and</span> s1[i] == s3[i + j] <span class="hljs-keyword">or</span> \
+                                interleaved[i][j - <span class="hljs-number">1</span>] <span class="hljs-keyword">and</span> s2[j] == s3[i + j]
+
+    <span class="hljs-keyword">return</span> interleaved[<span class="hljs-number">-1</span>][<span class="hljs-number">-1</span>]
+</code></pre>
+<h2 id="advance-topic"><a href="#advance-topic">Advance Topic</a></h2>
+<h3 id="best-time-to-buy-and-sell-stock"><a href="#best-time-to-buy-and-sell-stock">Best Time to Buy and Sell Stock</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">max_profit_one_time</span><span class="hljs-params">(prices)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;Only buy and sell one time.
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> prices:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+    profit, lowest_price = <span class="hljs-number">0</span>, price[<span class="hljs-number">0</span>]
+    <span class="hljs-keyword">for</span> price <span class="hljs-keyword">in</span> prices[<span class="hljs-number">1</span>:]:
+        profit = max(profit, price - lowest_price)
+        lowest_price = min(lowest_price, price)
+
+    <span class="hljs-keyword">return</span> profit
+</code></pre>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">max_profit_unlimited</span><span class="hljs-params">(prices)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;Buy and sell as much as you can.
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> prices:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+    <span class="hljs-keyword">return</span> sum(sell - buy <span class="hljs-keyword">for</span> sell, buy <span class="hljs-keyword">in</span> zip(prices[<span class="hljs-number">1</span>:], prices[:<span class="hljs-number">-1</span>]) <span class="hljs-keyword">if</span> sell &gt; buy)
+</code></pre>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">max_profit</span><span class="hljs-params">(prices, k)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;Buy and sell as much as k times.
+
+    Time: O(n)
+    Space: O(k)
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> prices:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+    <span class="hljs-keyword">if</span> k &gt;= len(prices) / <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">return</span> max_profit_unlimited(prices)
+
+    <span class="hljs-comment"># b, bs, bsb, bsbs, ... [2 * k][bs]</span>
+    min_value = -max(prices)
+    profits = [[min_value <span class="hljs-keyword">if</span> i % <span class="hljs-number">2</span> == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">2</span> * k)]
+               <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(<span class="hljs-number">2</span>)]
+
+    current, next = <span class="hljs-number">0</span>, <span class="hljs-number">1</span>
+    <span class="hljs-keyword">for</span> price <span class="hljs-keyword">in</span> prices:
+        <span class="hljs-keyword">for</span> state <span class="hljs-keyword">in</span> range(<span class="hljs-number">2</span> * k):
+            buy = <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> state % <span class="hljs-number">2</span> == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">-1</span>
+            profits[next][state] = max(
+                profits[current][state],
+                profits[current][state - <span class="hljs-number">1</span>] - buy * price)
+        current, next = next, current
+
+    <span class="hljs-comment"># Max profit happens with a least one sale.</span>
+    <span class="hljs-keyword">return</span> max(profits[current])
+</code></pre>
+<h3 id="maximum-subarray"><a href="#dynamic-programming.md#maximum-subarray">Maximum Subarray</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">max_subarray</span><span class="hljs-params">(nums)</span>:</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> nums:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+    max_overall, max_included_last = nums[<span class="hljs-number">0</span>], nums[<span class="hljs-number">0</span>]
+
+    <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> nums[<span class="hljs-number">1</span>:]:
+        max_included_last = max(max_included_last + num, num)
+        max_overall = max(max_overall, max_included_last)
+
+    <span class="hljs-keyword">return</span> max_overall
+</code></pre>
+<h3 id="burst-balloons"><a href="#burst-ballons">Burst Balloons</a></h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">max_coins</span><span class="hljs-params">(nums)</span>:</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> nums:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+    nums = [<span class="hljs-number">1</span>] + nums + [<span class="hljs-number">1</span>]
+    max_coins = [[<span class="hljs-number">0</span>] * len(nums) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(len(nums))]
+
+    <span class="hljs-keyword">for</span> size <span class="hljs-keyword">in</span> range(<span class="hljs-number">2</span>, len(nums)):
+        <span class="hljs-comment"># (left, right)</span>
+        <span class="hljs-keyword">for</span> left <span class="hljs-keyword">in</span> range(len(nums) - size):
+            right = left + size
+            <span class="hljs-keyword">for</span> last <span class="hljs-keyword">in</span> range(left + <span class="hljs-number">1</span>, right):
+                max_coins[left][right] = max(
+                    max_coins[left][right],
+                    nums[left] * nums[last] * nums[right] + max_coins[left][last] + max_coins[last][right])
+
+    <span class="hljs-keyword">return</span> max_coins[<span class="hljs-number">0</span>][len(nums) - <span class="hljs-number">1</span>]
+</code></pre>
 
                                 
                                 </section>
@@ -945,7 +1195,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dynamic Programming","level":"1.4","depth":1,"next":{"title":"Coordinates","level":"1.4.1","depth":2,"anchor":"#coordinates","path":"dynamic-programming.md","ref":"dynamic-programming.md#coordinates","articles":[{"title":"Triangle","level":"1.4.1.1","depth":3,"anchor":"#triangle","path":"dynamic-programming.md","ref":"dynamic-programming.md#triangle","articles":[]},{"title":"Unique Paths","level":"1.4.1.2","depth":3,"anchor":"#unique-paths","path":"dynamic-programming.md","ref":"dynamic-programming.md#unique-paths","articles":[]},{"title":"Climbing Stairs","level":"1.4.1.3","depth":3,"anchor":"#climbing-stairs","path":"dynamic-programming.md","ref":"dynamic-programming.md#climbing-stairs","articles":[]},{"title":"House Robber","level":"1.4.1.4","depth":3,"anchor":"#house-robber","path":"dynamic-programming.md","ref":"dynamic-programming.md#house-robber","articles":[]},{"title":"Minimum Path Sum","level":"1.4.1.5","depth":3,"anchor":"#minimum-path-sum","path":"dynamic-programming.md","ref":"dynamic-programming.md#minimum-path-sum","articles":[]},{"title":"Jump Game","level":"1.4.1.6","depth":3,"anchor":"#jump-game","path":"dynamic-programming.md","ref":"dynamic-programming.md#jump-game","articles":[]},{"title":"Longest Increasing Subsequence","level":"1.4.1.7","depth":3,"anchor":"#longest-increasing-subsequence","path":"dynamic-programming.md","ref":"dynamic-programming.md#longest-increasing-subsequence","articles":[]}]},"previous":{"title":"Lowest Common Ancestor of a Binary Tree","level":"1.3.9","depth":2,"anchor":"#lowest-common-ancestor-of-a-binary-tree","path":"binary-tree.md","ref":"binary-tree.md#lowest-common-ancestor-of-a-binary-tree","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dynamic-programming.md","mtime":"2016-11-03T07:09:38.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-03T07:08:29.817Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Dynamic Programming","level":"1.4","depth":1,"next":{"title":"Coordinates","level":"1.4.1","depth":2,"anchor":"#coordinates","path":"dynamic-programming.md","ref":"dynamic-programming.md#coordinates","articles":[{"title":"Triangle","level":"1.4.1.1","depth":3,"anchor":"#triangle","path":"dynamic-programming.md","ref":"dynamic-programming.md#triangle","articles":[]},{"title":"Unique Paths","level":"1.4.1.2","depth":3,"anchor":"#unique-paths","path":"dynamic-programming.md","ref":"dynamic-programming.md#unique-paths","articles":[]},{"title":"Climbing Stairs","level":"1.4.1.3","depth":3,"anchor":"#climbing-stairs","path":"dynamic-programming.md","ref":"dynamic-programming.md#climbing-stairs","articles":[]},{"title":"House Robber","level":"1.4.1.4","depth":3,"anchor":"#house-robber","path":"dynamic-programming.md","ref":"dynamic-programming.md#house-robber","articles":[]},{"title":"Minimum Path Sum","level":"1.4.1.5","depth":3,"anchor":"#minimum-path-sum","path":"dynamic-programming.md","ref":"dynamic-programming.md#minimum-path-sum","articles":[]},{"title":"Jump Game","level":"1.4.1.6","depth":3,"anchor":"#jump-game","path":"dynamic-programming.md","ref":"dynamic-programming.md#jump-game","articles":[]},{"title":"Longest Increasing Subsequence","level":"1.4.1.7","depth":3,"anchor":"#longest-increasing-subsequence","path":"dynamic-programming.md","ref":"dynamic-programming.md#longest-increasing-subsequence","articles":[]}]},"previous":{"title":"Lowest Common Ancestor of a Binary Tree","level":"1.3.9","depth":2,"anchor":"#lowest-common-ancestor-of-a-binary-tree","path":"binary-tree.md","ref":"binary-tree.md#lowest-common-ancestor-of-a-binary-tree","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dynamic-programming.md","mtime":"2016-12-04T06:55:48.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-12-04T06:54:07.255Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
